@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function getComputerChoice() {
+            const choices = ["rock", "paper", "scissors"];
+            const randomIndex = Math.floor(Math.random() * 3);
+            return choices[randomIndex];
+        }
+
+        function getHumanChoice(){
+            return prompt("Rock, Paper, or Scissors?")
+        }
+
+        function humanScore(human, computer){
+            let score = 0;
+
+            if (human == computer) return score;
+            
+            if (
+                (human === "rock" && computer === "scissors") ||
+                (human === "paper" && computer === "rock") ||
+                (human === "scissors" && computer === "paper")
+            ) {
+                score++;
+            }
+
+            return score;
+
+        }
+
+        function computerScore(human, computer){
+            let score = 0;
+
+            if (human == computer) return score;
+            
+            if (
+                (computer === "rock" && human === "scissors") ||
+                (computer === "paper" && human === "rock") ||
+                (computer === "scissors" && human === "paper")
+            ) {
+                score++;
+            }
+
+            return score;
+        }
+
+        function playRound() {
+            const humanChoice = getHumanChoice().toLowerCase();
+            const computerChoice = getComputerChoice();
+
+            console.log("Human:", humanChoice);
+            console.log("Computer:", computerChoice);
+
+            console.log("Human Score:", humanScore(humanChoice, computerChoice));
+            console.log("Computer Score:", computerScore(humanChoice, computerChoice));
+        }
+
+        playRound();
+    </script>
+</body>
+</html>
