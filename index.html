@@ -6,15 +6,25 @@
     <title>Document</title>
 </head>
 <body>
+    <div>
+        <button class="choice">Rock</button>
+        <button class="choice">Paper</button>
+        <button class="choice">Scissors</button>
+    </div>
+        <h1 id="player-score">Player Score: 0</h1>
+        <h1 id="computer-score">Computer Score: 0</h1>
+        <p id="winner"></p>
+    <div>
+
+    </div>
     <script>
+        let playerScore = 0;
+        let computerScoreValue = 0;
+
         function getComputerChoice() {
             const choices = ["rock", "paper", "scissors"];
             const randomIndex = Math.floor(Math.random() * 3);
             return choices[randomIndex];
-        }
-
-        function getHumanChoice(){
-            return prompt("Rock, Paper, or Scissors?")
         }
 
         function humanScore(human, computer){
@@ -50,18 +60,55 @@
             return score;
         }
 
-        function playRound() {
-            const humanChoice = getHumanChoice().toLowerCase();
+        function playRound(humanChoice) {
             const computerChoice = getComputerChoice();
+
+            playerScore += humanScore(humanChoice, computerChoice);
+            computerScoreValue += computerScore(humanChoice, computerChoice);
+
+            document.querySelector("#player-score").textContent =
+                `Player Score: ${playerScore}`;
+
+            document.querySelector("#computer-score").textContent =
+                `Computer Score: ${computerScoreValue}`;
 
             console.log("Human:", humanChoice);
             console.log("Computer:", computerChoice);
 
-            console.log("Human Score:", humanScore(humanChoice, computerChoice));
-            console.log("Computer Score:", computerScore(humanChoice, computerChoice));
-        }
+            if (playerScore >= 5) {
+                alert("Player wins!");
+                document.querySelector("#winner").textContent = "Player wins!";
 
-        playRound();
+                playerScore = 0;
+                computerScoreValue = 0;
+
+                document.querySelector("#player-score").textContent =
+                    `Player Score: ${playerScore}`;
+
+                document.querySelector("#computer-score").textContent =
+                    `Computer Score: ${computerScoreValue}`;
+            }
+            else if (computerScoreValue >= 5) {
+                alert("Computer wins!");
+                document.querySelector("#winner").textContent = "Computer wins!";
+
+                playerScore = 0;
+                computerScoreValue = 0;
+
+                document.querySelector("#player-score").textContent =
+                    `Player Score: ${playerScore}`;
+
+                document.querySelector("#computer-score").textContent =
+                    `Computer Score: ${computerScoreValue}`;
+            }
+        }
+        
+        document.querySelectorAll(".choice").forEach(button => {
+            button.addEventListener("click", () => {
+                playRound(button.textContent.toLowerCase());
+            });
+        });
+
     </script>
 </body>
 </html>
